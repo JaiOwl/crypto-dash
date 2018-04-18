@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import logger from 'morgan';
+import logger from 'morgan-debug';
 import bodyParser from 'body-parser';
 import routes from './routes';
 
@@ -11,7 +11,7 @@ app.disable('x-powered-by');
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev', {
+app.use(logger('debug', 'combined', {
   skip: () => app.get('env') === 'test'
 }));
 app.use(bodyParser.json());
