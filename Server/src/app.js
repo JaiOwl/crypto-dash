@@ -4,11 +4,16 @@ import logger from 'morgan-debug';
 import bodyParser from 'body-parser';
 import routes from './routes';
 
+const {
+  PUBLIC_DIR = '../public',
+  VIEWS_DIR = '../views'
+} = process.env;
+
 const app = express();
 app.disable('x-powered-by');
 
 // View engine setup
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, VIEWS_DIR));
 app.set('view engine', 'pug');
 
 app.use(logger('debug', 'combined', {
@@ -16,7 +21,7 @@ app.use(logger('debug', 'combined', {
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, PUBLIC_DIR)));
 
 // Routes
 app.use('/', routes);

@@ -1,51 +1,21 @@
 # Express.js with Babel Boilerplate
 
-[![Code Climate](https://codeclimate.com/github/vmasto/express-babel/badges/gpa.svg)](https://codeclimate.com/github/vmasto/express-babel)
-[![Dependencies Status](https://david-dm.org/vmasto/express-babel/status.svg)](https://david-dm.org/vmasto/express-babel)
-[![Dev Dependencies Status](https://david-dm.org/vmasto/express-babel/dev-status.svg)](https://david-dm.org/vmasto/express-babel)
-[![NSP Status](https://nodesecurity.io/orgs/vmasto/projects/d8089487-4f0e-4f69-abb1-938c6de1e6a7/badge)](https://nodesecurity.io/orgs/vmasto/projects/d8089487-4f0e-4f69-abb1-938c6de1e6a7)
-
-A mostly unopinionated starter project for using Babel and ES2017+ features in a Node.js server environment as well as providing linting and testing solutions. It provides the setup for compiling, linting and testing your code but doesn't make any further assumptions on how your project should be structured.
-
-It's a small improvement over [Babel's official approach](https://github.com/babel/example-node-server) and [express-generator](https://expressjs.com/en/starter/generator.html).
-
-Make sure you read the FAQ for more details and info.
-
-### Features:
-- [Express.js](https://expressjs.com/) as the web framework.
-- ES2017+ support with [Babel](https://babeljs.io/).
-- Automatic polyfill requires based on environment with [babel-preset-env](https://github.com/babel/babel-preset-env).
-- Linting with [ESLint](http://eslint.org/).
-- Testing with [Jest](https://facebook.github.io/jest/).
-- [Quick deployment guide](DEPLOYMENT.md) for Heroku, AWS Elastic Beanstalk, and App Engine.
+Based on the following boiler-plate (https://codeclimate.com/github/vmasto/express-babel). Thanks for making it easier to get a simple project started.
 
 ## Getting started
 
 ```sh
-# Clone the project
-git clone git@github.com:vmasto/express-babel.git
-cd express-babel
-
-# Make it your own
-rm -rf .git && git init && npm init
-
 # Install dependencies
 npm install
-
-# or if you're using Yarn
-yarn
 ```
-Then you can begin development:
+
+Then you can use:
 
 ```sh
-# yarn
-yarn run dev
-
 # npm
-npm run dev
+npm start
 ```
 
-This will launch a [nodemon](https://nodemon.io/) process for automatic server restarts when your code changes.
 
 ### Testing
 
@@ -54,9 +24,6 @@ Testing is powered by [Jest](https://facebook.github.io/jest/). This project als
 Start the test runner in watch mode with:
 
 ```sh
-# yarn
-yarn test
-
 # npm
 npm test
 ```
@@ -64,9 +31,6 @@ npm test
 You can also generate coverage with:
 
 ```sh
-# yarn
-yarn test --coverage
-
 # npm
 npm test -- --coverage
 ```
@@ -78,9 +42,6 @@ Linting is set up using [ESLint](http://eslint.org/). It uses ESLint's default [
 Begin linting in watch mode with:
 
 ```sh
-# yarn
-yarn run lint
-
 # npm
 npm run lint
 ```
@@ -93,9 +54,9 @@ To begin linting and start the server simultaneously, edit the `package.json` li
 
 ### Environmental variables in development
 
-The project uses [dotenv](https://www.npmjs.com/package/dotenv) for setting environmental variables during development. Simply copy `.env.example`, rename it to `.env` and add your env vars as you see fit. 
+The project uses [dotenv](https://www.npmjs.com/package/dotenv) for setting environmental variables during development. Simply update `.env.config` your env vars as you see fit. 
 
-It is **strongly** recommended **never** to check in your .env file to version control. It should only include environment-specific values such as database passwords or API keys used in development. Your production env variables should be different and be set differently depending on your hosting solution. `dotenv` is only for development.
+It is **strongly** recommended **never** to check in your `.env.config` file to version control. It should only include environment-specific values such as database passwords or API keys used in development. Your production env variables should be different and be set differently depending on your hosting solution.
 
 ### Deployment
 
@@ -112,9 +73,6 @@ npm run build
 will compile your `src` into `/dist`, and 
 
 ```sh
-# yarn
-yarn start
-
 # npm
 npm start
 ```
