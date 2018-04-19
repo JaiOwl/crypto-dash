@@ -4,13 +4,17 @@
   "description": "Personal prortfolio project to display Crypt-Currency prices and track portfolio values.",
   "main": "dist/index.js",
   "scripts": {
-    "postinstall": "npm run postinstall:server",
+    "postinstall": "npm-run-all postinstall:*",
+    "postinstall:client": "cd Client && npm install && cd ../",
     "postinstall:server": "cd Server && npm install && cd ../",
-    "clean": "rimraf dist && npm run clean:server",
+    "clean": "rimraf dist && npm-run-all clean:*",
+    "clean:client": "cd Client && npm run clean && cd ../",
     "clean:server": "cd Server && npm run clean && cd ../",
-    "build": "npm run clean && mkdirp dist && npm run build:server && node deployToDist.js",
+    "build": "npm run clean && mkdirp dist && npm-run-all build:* && node deployToDist.js",
+    "build:client": "cd Client && npm run build && cd ../",
     "build:server": "cd Server && npm run build && cd ../",
-    "test": "npm run test:server",
+    "test": "npm run test:*",
+    "test:client": "cd Client && npm test && cd ../",
     "test:server": "cd Server && npm test && cd ../",
     "prestart": "npm run -s build",
     "start": "cd dist && npm run start"
@@ -27,6 +31,7 @@
   "homepage": "https://github.com/JaiOwl/crypto-dash#readme",
   "devDependencies": {
     "mkdirp": "^0.5.1",
+    "npm-run-all": "^4.1.2",
     "rimraf": "^2.6.2",
     "shelljs": "^0.8.1",
     "vue-cli": "^2.9.3"

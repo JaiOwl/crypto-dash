@@ -21,10 +21,13 @@ app.use(logger('debug', 'combined', {
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, PUBLIC_DIR)));
+app.use('/', express.static(path.join(__dirname, PUBLIC_DIR), { index: 'index.html' }) );
 
 // Routes
 app.use('/', routes);
+
+// Default index
+app.use('*', express.static(path.join(__dirname, PUBLIC_DIR), { index: 'index.html' }) );
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
