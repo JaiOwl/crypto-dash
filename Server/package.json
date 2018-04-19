@@ -15,30 +15,28 @@
     "start": "node dist/index.js",
     "dev": "nodemon src/index.js --exec \"node -r dotenv/config -r babel-register\"",
     "clean": "rimraf dist",
-    "build": "npm run clean && mkdirp dist && babel src -s -D -d dist",
+    "build": "npm run clean && mkdirp dist && babel src -s -D -d dist && node deployToDist.js",
     "test": "jest --coverage",
     "lint": "esw -w src test"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
     "body-parser": "^1.18.2",
     "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "morgan": "^1.9.0",
     "morgan-debug": "^2.0.0",
-    "pug": "^2.0.0-beta11",
-    "rimraf": "^2.6.2"
+    "pug": "^2.0.0-beta11"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.3",
     "babel-jest": "^21.2.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
-    "dotenv": "^4.0.0",
     "eslint": "^4.12.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jest": "^21.3.2",
@@ -46,6 +44,8 @@
     "jest": "^21.2.1",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.12.1",
+    "rimraf": "^2.6.2",
+    "shelljs": "^0.8.1",
     "supertest": "^3.0.0"
   },
   "babel": {
