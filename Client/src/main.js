@@ -7,6 +7,7 @@ import { sync } from 'vuex-router-sync';
 
 import BootstrapVue from 'bootstrap-vue';
 // import 'bootstrap/dist/css/bootstrap.css';
+import './assets/css/fontawesome-all.min.css';
 import './assets/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 

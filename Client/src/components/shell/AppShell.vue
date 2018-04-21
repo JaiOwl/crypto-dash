@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppNavBar></AppNavBar>
     <div class="h2">{{pageName}}</div>
 
     <router-view/>
@@ -7,8 +8,13 @@
 </template>
 
 <script>
+import AppNavBar from './AppNavBar.vue';
+
 export default {
   name: 'AppShell',
+  components: {
+    'AppNavBar': AppNavBar
+  },
   data () {
     return {
       pageName: 'AppShell Page'

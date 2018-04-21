@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    {{routePath}}
     <router-view/>
   </div>
 </template>
