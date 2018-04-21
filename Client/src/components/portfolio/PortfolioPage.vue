@@ -1,5 +1,7 @@
 <template>
-  <div>{{pageName}} - {{portfolioId}}</div>
+  <div>
+    <div class="h2">{{pageName}} - {{portfolioId}}</div>
+  </div>
 </template>
 
 <script>

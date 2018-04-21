@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{pageName}}
+    <div class="h2">{{pageName}}</div>
 
     <router-view/>
   </div>
