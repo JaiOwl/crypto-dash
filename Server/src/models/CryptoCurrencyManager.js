@@ -13,6 +13,7 @@ module.exports.CryptoCurrencyManager = class CryptoCurrencyManager {
     this.updater        = updater;
     this.updateInterval = updateInterval || DEFAULT_UPDATE_INTERVAL;
     this.updating       = undefined;
+    this.updateHandler  = undefined;
     this.currencyStore  = currencyStore;
 
     infoLogger(`[${this.id}] Instance Created`);
@@ -23,13 +24,24 @@ module.exports.CryptoCurrencyManager = class CryptoCurrencyManager {
       },
       0
     );
+
+  }
+
+  startUpdating () {
+    if (this.updateHandler !== undefined) return;
     // Schedule update at configured interval
-    setInterval(
+    this.updateHandler = setInterval(
       () => {
         this.update();
       },
       this.updateInterval
     );
+  }
+
+  stopUpdating () {
+    if (this.updateHandler !== undefined) {
+      clearInterval(this.updateHandler);
+    }
   }
 
   /**
