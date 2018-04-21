@@ -1,8 +1,6 @@
 <template>
   <div>
     <AppNavBar></AppNavBar>
-    <div class="h2">{{pageName}}</div>
-
     <router-view/>
   </div>
 </template>
