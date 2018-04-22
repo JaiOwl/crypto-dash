@@ -1,11 +1,11 @@
 import { CryptoCurrencyValue } from "../../../src/models/CryptoCurrencyValue";
-import { CointMarketCapApiClient } from "../../../src/models/CoinMarketCapApi/CoinMarketCapApiClient";
+import { CoinMarketCapApiClient } from "../../../src/models/CoinMarketCapApi/CoinMarketCapApiClient";
 
 describe('CoinMarketCapApiClient requestUpdate',
   () => {
     it('should return values',
       async () => {
-        const iut = new CointMarketCapApiClient();
+        const iut = new CoinMarketCapApiClient();
         const values = await iut.requestUpdate();
 
         expect(values).not.toBeUndefined();

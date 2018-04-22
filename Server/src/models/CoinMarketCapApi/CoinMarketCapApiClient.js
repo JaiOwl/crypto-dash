@@ -62,7 +62,7 @@ const getData = (response) => {
   );
 }
 
-module.exports.CointMarketCapApiClient = class CointMarketCapApiClient extends CryptoCurrencyValueUpdater {
+module.exports.CoinMarketCapApiClient = class CoinMarketCapApiClient extends CryptoCurrencyValueUpdater {
   constructor() {
     super();
   }
