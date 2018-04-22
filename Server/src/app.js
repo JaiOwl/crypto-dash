@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import logger from 'morgan-debug';
 import bodyParser from 'body-parser';
-import routes from './routes';
+import { Routes } from './routes';
 
 const {
   PUBLIC_DIR = '../public',
@@ -24,7 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, PUBLIC_DIR), { index: 'index.html' }) );
 
 // Routes
-app.use('/', routes);
+const routes = new Routes;
+app.use('/', routes.router );
 
 // Default index
 app.use('*', express.static(path.join(__dirname, PUBLIC_DIR), { index: 'index.html' }) );

@@ -1,14 +1,22 @@
 import { Router } from 'express';
 import packageJson from '../../package.json';
 
-const routes = Router();
+module.exports.ApiRoutes = class ApiRoutes {
 
-/**
- * GET API Version
- */
-routes.get('/version', (req, res) => {
-  res.status(200);
-  res.json({ service: `${packageJson.name}`, version: `${packageJson.version}` });
-});
+  constructor () {
+    this.routes = Router();
 
-export default routes;
+    /**
+     * GET API Version
+     */
+    this.routes.get('/version', (req, res) => {
+      res.status(200);
+      res.json({ service: `${packageJson.name}`, version: `${packageJson.version}` });
+    });
+  }
+
+  get router () {
+    return this.routes;
+  }
+}
+

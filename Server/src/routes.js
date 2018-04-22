@@ -1,19 +1,26 @@
 import { Router } from 'express';
 import packageJson from '../package.json';
-import ApiRouter from './controllers/api';
+import { ApiRoutes } from './controllers/api';
 
-const routes = Router();
+module.exports.Routes = class Routes {
+  constructor () {
+    this.routes = Router();
+    this.apiRoutes = new ApiRoutes();
 
-/**
- * GET test home page
- */
-routes.get('/', (req, res) => {
-  res.render('index', { title: packageJson.name });
-});
+    /**
+     * GET test home page
+     */
+    this.routes.get('/', (req, res) => {
+      res.render('index', { title: packageJson.name });
+    });
 
-/**
- * Pass API requests to API route handler
- */
-routes.use('/api', ApiRouter);
+    /**
+     * Pass API requests to API route handler
+     */
+    this.routes.use('/api', this.apiRoutes.router);
+  }
 
-export default routes;
+  get router () {
+    return this.routes;
+  }
+}
