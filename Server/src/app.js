@@ -3,6 +3,13 @@ import path from 'path';
 import logger from 'morgan-debug';
 import bodyParser from 'body-parser';
 import { Routes } from './routes';
+import { CryptoCurrencyStore } from './models/CryptoCurrencyStore';
+import { CryptoCurrencyManager } from './models/CryptoCurrencyManager';
+import { CoinMarketCapApiClient } from './models/CoinMarketCapApi/CoinMarketCapApiClient';
+
+const {
+  COIN_MARKER_API_UPDATE_INTERVAL = (60 * 1000)
+} = process.env;
 
 const {
   PUBLIC_DIR = '../public',
@@ -24,11 +31,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, PUBLIC_DIR), { index: 'index.html' }) );
 
 // Routes
-const routes = new Routes;
+const currencyStore = new CryptoCurrencyStore();
+const coinMarketCapApiClient = new CoinMarketCapApiClient();
+const currencyManager = new CryptoCurrencyManager(
+  {
+    updateInterval: COIN_MARKER_API_UPDATE_INTERVAL,
+    updater:        coinMarketCapApiClient,
+    currencyStore:  currencyStore
+  }
+);
+if ( app.get('env') !== 'test' ) {
+  // Only instruct to poll API if not testing
+  currencyManager.startUpdating(); // TODO - include stop at a later date
+}
+const routes = new Routes(currencyStore);
 app.use('/', routes.router );
 
 // Default index
-app.use('*', express.static(path.join(__dirname, PUBLIC_DIR), { index: 'index.html' }) );
+app.use('^(?!/api/*).*', express.static(path.join(__dirname, PUBLIC_DIR), { index: 'index.html' }) );
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
