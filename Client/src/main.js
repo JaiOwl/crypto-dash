@@ -16,13 +16,27 @@ Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 const unsync = sync(store, router);
 
+const UPDATE_POLL_INTERVAL = 30 * 1000;
+let updateInterval;
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
   render: h => h(App),
-  destroyed: () => {
+  created () {
+    this.$store.dispatch('updateCurrencyValues');
+    updateInterval = setInterval(
+      () => { this.$store.dispatch('updateCurrencyValues'); },
+      UPDATE_POLL_INTERVAL
+    );
+  },
+  destroyed () {
+    if (updateInterval !== undefined) {
+      clearInterval(updateInterval);
+      updateInterval = undefined;
+    }
     unsync();
   }
 });
