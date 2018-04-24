@@ -94,7 +94,7 @@ module.exports.CoinMarketCapApiClient = class CoinMarketCapApiClient extends Cry
                 percent_change_1h:   Number.parseFloat(input.percent_change_1h), // string of float
                 percent_change_24h:  Number.parseFloat(input.percent_change_24h), // string of float
                 percent_change_7d:   Number.parseFloat(input.percent_change_7d), // string of float
-                last_updated:        new Date(input.last_updated)
+                last_updated:        new Date(input.last_updated * 1000) // Unix time in seconds
               }
             );
             currencyValues.push(value);
