@@ -13,6 +13,9 @@ jest.mock('../../src/models/CryptoCurrencyStore',
               c: { id: 'c' },
               bitcoin: { id: 'bitcoin' }
             };
+          },
+          getCurrencyValue: function(id) {
+            return (id != 'fakebob') ? { id: id } : undefined;
           }
         }
       }

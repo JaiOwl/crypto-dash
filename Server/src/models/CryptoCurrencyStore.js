@@ -1,7 +1,7 @@
 import debug from 'debug';
 import { CryptoCurrencyValue } from './CryptoCurrencyValue';
 
-const debugLogger = debug('debug:CryptoCurrencyManager');
+const debugLogger = debug('debug:CryptoCurrencyStore');
 
 module.exports.CryptoCurrencyStore = class CryptoCurrencyStore {
 

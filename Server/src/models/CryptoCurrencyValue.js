@@ -1,10 +1,5 @@
 
 module.exports.CryptoCurrencyValue = class CryptoCurrencyValue {
-  /**
-   * Populates the CryptoCurrencyValue from the Coin Market API response.
-   *
-   * @param {CoinMarketApiTickerValue} input
-   */
   constructor(
     {
       id,

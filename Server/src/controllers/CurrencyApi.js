@@ -17,11 +17,11 @@ module.exports.CurrenyApiRoutes = class CurrenyApiRoutes {
     );
 
     /**
-     * GET All Currency Values
+     * GET Specific Currency Value
      */
     this.routes.get('/currency/:currencyId/value',
       async (req, res, next) => {
-        const value = await this.allCurrencyValues[req.params.currencyId];
+        const value = await this.currencyStore.getCurrencyValue(req.params.currencyId);
         if (value !== undefined) {
           res.status(200);
           res.json(value);
