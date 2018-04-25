@@ -3,9 +3,9 @@ import packageJson from '../package.json';
 import { ApiRoutes } from './controllers/api';
 
 module.exports.Routes = class Routes {
-  constructor (currencyStore) {
+  constructor (currencyStore, portfolioStore) {
     this.routes = Router();
-    this.apiRoutes = new ApiRoutes(currencyStore);
+    this.apiRoutes = new ApiRoutes(currencyStore, portfolioStore);
 
     /**
      * GET test home page

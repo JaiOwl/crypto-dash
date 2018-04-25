@@ -6,6 +6,7 @@ import { Routes } from './routes';
 import { CryptoCurrencyStore } from './models/CryptoCurrencyStore';
 import { CryptoCurrencyManager } from './models/CryptoCurrencyManager';
 import { CoinMarketCapApiClient } from './models/CoinMarketCapApi/CoinMarketCapApiClient';
+import { PortfolioStore } from './models/Porfolio/PortfolioStore';
 
 const {
   COIN_MARKER_API_UPDATE_INTERVAL = (60 * 1000)
@@ -44,7 +45,8 @@ if ( app.get('env') !== 'test' ) {
   // Only instruct to poll API if not testing
   currencyManager.startUpdating(); // TODO - include stop at a later date
 }
-const routes = new Routes(currencyStore);
+const portfolioStore = new PortfolioStore();
+const routes = new Routes(currencyStore, portfolioStore);
 app.use('/', routes.router );
 
 // Default index

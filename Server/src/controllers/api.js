@@ -1,13 +1,16 @@
 import { Router } from 'express';
 import { CurrenyApiRoutes } from './CurrencyApi';
+import { PortfolioApiRoutes } from './PortfolioApi';
 import packageJson from '../../package.json';
 
 module.exports.ApiRoutes = class ApiRoutes {
 
-  constructor (currencyStore) {
+  constructor (currencyStore, portfolioStore) {
     this.routes = Router();
     this.currencyStore = currencyStore;
+    this.portfolioStore = portfolioStore;
     this.currencyApi = new CurrenyApiRoutes(this.currencyStore);
+    this.portfolioApi = new PortfolioApiRoutes(this.portfolioStore);
 
     /**
      * GET API Version
@@ -19,6 +22,8 @@ module.exports.ApiRoutes = class ApiRoutes {
 
     // Add Currency API
     this.routes.use(this.currencyApi.router);
+    // Add Portfolio API
+    this.routes.use(this.portfolioApi.router);
   }
 
   get router () {
