@@ -1,8 +1,6 @@
 import debug from 'debug';
 import * as backend from '../../services/backend';
 
-debug.enable('debug:*,info:*,warn:*,error:*');
-
 const debugLogger = debug('debug:CurrencyValuesStore');
 // const infoLogger = debug('info:CurrencyValuesStore');
 const warnLogger = debug('warn:CurrencyValuesStore');

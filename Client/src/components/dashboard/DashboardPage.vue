@@ -21,11 +21,6 @@ export default {
   components: {
     'CryptoCurrencyDashView': CryptoCurrencyDashView
   },
-  data () {
-    return {
-      pageName: 'Dashboard Page'
-    };
-  },
   computed: {
     currencyValuesAsArray () {
       return this.$store.getters.currencyValuesAsArray.slice(0).sort(

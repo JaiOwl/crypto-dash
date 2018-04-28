@@ -45,7 +45,7 @@ module.exports.PortfolioApiRoutes = class PortfolioApiRoutes {
           if ((req.body.name !== undefined) && (typeof(req.body.name) == 'string')) {
             const update = new Portfolio(value);
             update.name = req.body.name;
-            value = this.portfolioStore.setPortfolio(update);
+            value = await this.portfolioStore.setPortfolio(update);
             // apply update
             res.status(200);
             res.json(value);
@@ -74,7 +74,7 @@ module.exports.PortfolioApiRoutes = class PortfolioApiRoutes {
               name: req.body.name
             }
           );
-          const value = this.portfolioStore.setPortfolio(update);
+          const value = await this.portfolioStore.setPortfolio(update);
           // apply update
           res.status(200);
           res.json(value);
@@ -113,7 +113,7 @@ module.exports.PortfolioApiRoutes = class PortfolioApiRoutes {
           if (valid) {
             const update = new Portfolio(portfolio);
             update.transactions.push(new PortfolioTransaction(transactionContent));
-            const value = this.portfolioStore.setPortfolio(update);
+            const value = await this.portfolioStore.setPortfolio(update);
             // apply update
             res.status(200);
             res.json(value);

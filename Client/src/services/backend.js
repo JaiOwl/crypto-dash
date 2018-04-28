@@ -4,6 +4,10 @@ export function get (url, request) {
   return axios.get(url, request);
 }
 
+export function put (url, data, request) {
+  return axios.put(url, data, request);
+}
+
 export function post (url, data, request) {
   return axios.post(url, data, request);
 }
