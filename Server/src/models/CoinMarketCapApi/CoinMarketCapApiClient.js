@@ -38,6 +38,17 @@ const getConnection = () => {
             resolve(clientResponse);
           }
         }
+      ).on('error',
+        (error) => {
+          debugLogger(`equest failed => ${error}`);
+
+          if (!alreadyEnded) {
+            debugLogger('Request Timeout');
+            alreadyEnded = true;
+            clearTimeout(timeout);
+            reject(error);
+          }
+        }
       );
     }
   );
