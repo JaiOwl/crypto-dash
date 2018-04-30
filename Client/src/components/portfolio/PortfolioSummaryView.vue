@@ -107,6 +107,7 @@ export default {
       return (this.totalValue - this.amountInvested);
     },
     totalGainedPercent: function () {
+      if (this.amountInvested === 0) return 0;
       return (this.totalGained / this.amountInvested) * 100;
     },
     totalGainedStr: function () {
