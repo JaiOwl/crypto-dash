@@ -11,7 +11,7 @@
           <div class="form-group row">
             <label for="portfolio-name-input" class="col-auto col-form-label">Name</label>
             <div class="col-auto">
-              <input class="form-control" type="text" v-model="portfolioName" id="portfolio-name-input">
+              <input class="form-control" type="text" v-model.trim="portfolioName" id="portfolio-name-input">
             </div>
           </div>
           <div class="row mx-0">
@@ -21,16 +21,16 @@
               </div>
             </div>
             <div class="col-auto px-1 ml-auto">
-              <div class="btn btn-primary" v-on:click="submitRequest" :disabled="(action!==undefined)">
-                 <span v-if="(action===undefined)">Add</span>
+              <div class="btn btn-primary" v-on:click="submitRequest" :disabled="(action!=null)">
+                 <span v-if="(action==null)">Add</span>
                  <span v-else>Sending...</span>
               </div>
             </div>
           </div>
         </div>
-        <div class="row mx-0" v-if="(message!==undefined)">
+        <div class="row mx-0" v-if="(message!=null)">
           <div class="col-12 px-1">
-            <div class="alert" :class="{ 'alert-success': message.status === 'SUCCESS', 'alert-warning': message.status === 'WARN', 'alert-danager': message.status === 'ERROR' }">
+            <div class="alert" :class="{ 'alert-success': message.status === 'SUCCESS', 'alert-warning': message.status === 'WARN', 'alert-danger': message.status === 'ERROR' }">
               {{message.message}}
             </div>
           </div>
@@ -46,8 +46,8 @@ export default {
   data: function () {
     return {
       adding: false,
-      action: undefined,
-      message: undefined,
+      action: null,
+      message: null,
       portfolioName: 'New Portfolio'
     };
   },
@@ -55,21 +55,21 @@ export default {
     showEditor: function () {
       this.adding = true;
       this.portfolioName = 'New Portfolio';
-      delete this.message;
+      this.message = null;
     },
     hideEditor: function () {
       this.adding = false;
-      delete this.message;
+      this.message = null;
     },
     submitRequest: function () {
-      if (this.action !== undefined) return; // ignore duplicate requests
+      if (this.action != null) return; // ignore duplicate requests
 
       if ((this.portfolioName != null) && (this.portfolioName.length > 0)) {
-        delete this.message; // Hide existing message first
+        this.message = null; // Hide existing message first
         const action = this.$store.dispatch('addNewPortfolio', { name: `${this.portfolioName}` })
           .then(
             (value) => {
-              if (this.action === action) delete this.action;
+              if (this.action === action) this.action = null;
               this.message = {
                 status: 'SUCCESS',
                 message: `Successfully added portfolio ${this.portfolioName}`
@@ -79,7 +79,7 @@ export default {
           )
           .catch(
             (error) => {
-              if (this.action === action) delete this.action;
+              if (this.action === action) this.action = null;
               this.message = {
                 status: 'ERROR',
                 message: `Failed to add portfolio ${this.portfolioName} because ${error}`

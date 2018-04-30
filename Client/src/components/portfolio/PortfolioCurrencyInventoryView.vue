@@ -4,37 +4,22 @@
       <div class="card-body p-1 m-1">
         <div class="row mx-0">
           <div class="col-auto px-1 mw-100">
-            <i class="fa d-inline fa-chart-line"></i>
-            <span class="h3 mb-1">
-              {{portfolio.name}}
-            </span>
+            <div class="h3 mb-1">
+              {{currencyValue.name}}
+            </div>
+            <div class="badge badge-pill badge-primary px-2">
+              <span class="h4 mb-0">{{numberOfUnits}}</span> {{currencyValue.symbol}}
+            </div>
           </div>
           <div class="col-auto px-1 ml-auto">
-            <div class="btn btn-primary" v-on:click="openPortfolio"> Open </div>
+            <div class="h3 mb-0 text-right"> ${{currentValue.toFixed(2)}} </div>
+            <div class="h3 mb-0 text-right"
+              :class="{ 'text-success': (differenceInValue > 0), 'text-danger': (differenceInValue < 0) }">
+              {{differenceInValueStr}}
+            </div>
           </div>
         </div>
         <div class="row mx-0">
-          <!--
-          <div class="col">
-            <div class="d-md-none">
-              <span class="badge badge-success">
-                <span class="h4">+22%</span>
-              </span>
-            </div>
-            <div class="d-none d-md-block">
-
-            </div>
-          </div>
-          <div class="col-auto px-1">
-            <div class="col-auto px-1 ml-auto">
-              <div class="h3 mb-0 text-right"> $3,678,000.56 </div>
-              <div class="h3 text-success text-right"> +$1,702,000.56 </div>
-            </div>
-          </div>
-          -->
-        </div>
-        <div class="row mx-0">
-          <!--
           <div class="col-auto px-1 ml-auto"> 7 days
             <span class="badge" :class="{ 'badge-success': (currencyValue.percent_change_7d > 0), 'badge-danger': (currencyValue.percent_change_7d < 0), 'badge-dark': (currencyValue.percent_change_7d == 0) }">
               <span class="strong">{{currencyValue.percent_change_7d}}%</span>
@@ -50,7 +35,6 @@
               {{currencyValue.percent_change_1h}}%
             </span>
           </div>
-          -->
         </div>
       </div>
     </div>
@@ -58,12 +42,23 @@
 </template>
 
 <script>
+import { currencyToStr } from '../../services/currencyUtils';
+
 export default {
-  name: 'PortfolioListView',
-  props: [ 'portfolio' ],
-  methods: {
-    openPortfolio: function () {
-      this.$router.push({ name: 'Portfolio', params: { portfolioId: this.portfolio.id } });
+  name: 'PortfolioCurrencyInventoryView',
+  props: [ 'currencyId', 'numberOfUnits', 'initialValue' ],
+  computed: {
+    currencyValue: function () {
+      return this.$store.state.currencyValues.currencyValues[this.currencyId];
+    },
+    currentValue: function () {
+      return (this.currencyValue.price_usd * this.numberOfUnits);
+    },
+    differenceInValue: function () {
+      return (this.currentValue - this.initialValue);
+    },
+    differenceInValueStr: function () {
+      return currencyToStr('$', this.differenceInValue);
     }
   }
 };

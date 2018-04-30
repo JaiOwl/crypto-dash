@@ -84,6 +84,25 @@ export default {
         }
       );
       debugLogger('Updated Portfolio Values');
+    },
+    addNewPortfolioTransaction: async ({commit}, portfolioTransaction) => {
+      debugLogger('Adding New Portfolio Transaction');
+
+      let data;
+      try {
+        debugLogger('Requesting Insert');
+        const response = await backend.put(`/api/portfolio/${portfolioTransaction.portfolioId}/transaction`, {...portfolioTransaction});
+        if (response.status !== 200) throw new Error(`Request failed [${response.status}]`);
+        data = response.data;
+        debugLogger('Returned Portfolio Value');
+      } catch (error) {
+        warnLogger(`Failed to insert portfolio transaction value on server => ${error.message}`, error);
+        throw error;
+      }
+      if (data === undefined) return;
+
+      debugLogger('Action New Portfolio Transaction Value', data);
+      commit('setPortfolio', data);
     }
   },
 
