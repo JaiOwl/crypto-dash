@@ -3,7 +3,7 @@
     <div class="row mx-0">
         <div class="col-sm-12 col-xl-4 col-lg-6 col-md-12 p-0 m-0">
           <!-- Summary -->
-          <PortfolioSummaryView :portfolio="portfolio">
+          <PortfolioSummaryView :portfolio="portfolio" :portfolioInventoryAsArray="portfolioInventoryAsArray">
           </PortfolioSummaryView>
         </div>
         <div class="col-sm-12 col-xl-4 col-lg-6 col-md-12 p-0 m-0">
@@ -44,7 +44,7 @@
                   </div>
                   <div class="col-auto px-1">
                     <span class="badge badge-pill badge-primary">
-                      <div class="h3 mb-0"> {{portfolio.transactions.length}}</div>
+                      <div class="h3 mb-0" v-if="portfolio != null"> {{portfolio.transactions.length}}</div>
                     </span>
                   </div>
                 </div>
@@ -127,7 +127,7 @@ export default {
       return inventory.sort(
         (a, b) => {
           let aCurrency = this.$store.state.currencyValues.currencyValues[a.cryptoCurrencyId];
-          let bCurrency = this.$store.state.currencyValues.currencyValues[a.cryptoCurrencyId];
+          let bCurrency = this.$store.state.currencyValues.currencyValues[b.cryptoCurrencyId];
           let aValue = 0;
           let bValue = 0;
 
@@ -135,7 +135,7 @@ export default {
           if (bCurrency !== undefined) bValue = b.numberOfUnits * bCurrency.price_usd;
 
           if (aValue === bValue) return 0;
-          return (aValue < bValue) ? -1 : 1; // Reverse order
+          return (aValue < bValue) ? 1 : -1; // Reverse order
         }
       );
     },
@@ -148,8 +148,8 @@ export default {
 
       return transactions.sort(
         (a, b) => {
-          if (a.transactionDate.value === b.transactionDate.value) return 0;
-          return (a.transactionDate.value < b.transactionDate.value) ? -1 : 1; // reverse order - recent top
+          if (a.transactionDate === b.transactionDate) return 0;
+          return (a.transactionDate < b.transactionDate) ? 1 : -1; // reverse order - recent top
         }
       );
     }
