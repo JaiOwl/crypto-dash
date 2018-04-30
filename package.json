@@ -13,7 +13,7 @@
     "build": "npm run clean && mkdirp dist && npm-run-all build:* && node deployToDist.js",
     "build:client": "cd Client && npm run build && cd ../",
     "build:server": "cd Server && npm run build && cd ../",
-    "test": "npm run test:*",
+    "test": "npm-run-all test:*",
     "test:client": "cd Client && npm test && cd ../",
     "test:server": "cd Server && npm test && cd ../",
     "prestart": "npm run -s build",
